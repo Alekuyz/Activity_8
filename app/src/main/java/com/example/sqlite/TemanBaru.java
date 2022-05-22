@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sqlite.database.DBcontroller;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.HashMap;
@@ -17,8 +16,7 @@ public class TemanBaru extends AppCompatActivity {
 
     private TextInputEditText tNama, tTelpon;
     private Button simpanBtn;
-    String nm,tlp;
-    DBcontroller controller = new DBcontroller(this);
+    String nma,tlp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +35,14 @@ public class TemanBaru extends AppCompatActivity {
 
                 }
                 else{
-                    nm = tNama.getText().toString();
+                    nma = tNama.getText().toString();
                     tlp = tTelpon.getText().toString();
 
                     HashMap<String,String> qvalues = new HashMap<>();
-                    qvalues.put("nama", nm);
+                    qvalues.put("nama", nma);
                     qvalues.put("telpon", tlp);
 
-                    controller.insertData(qvalues);
+                    //.insertData(qvalues);
                     callHome();
                 }
             }
@@ -52,7 +50,7 @@ public class TemanBaru extends AppCompatActivity {
     }
 
     public  void  callHome(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), com.example.sqlite.MainActivity.class);
         startActivity(intent);
         finish();
     }

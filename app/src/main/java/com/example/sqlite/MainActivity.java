@@ -17,7 +17,6 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.sqlite.adapter.TemanAdapter;
-import com.example.sqlite.database.DBcontroller;
 import com.example.sqlite.database.Teman;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -31,11 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TemanAdapter adapter;
-    private ArrayList<Teman> temanArrayList;
-    DBcontroller controller = new DBcontroller(this);
-
+    private ArrayList<Teman> temanArrayList=new ArrayList<>();
+    String id,nma,tlp;
     private FloatingActionButton fab;
-    String id, nm, tlp;
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static String url_select = "http://127.0.0.1/umyTI/bacateman.php";
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycleview);
         fab = findViewById(R.id.floatingBtn);
-        bacaData();
+        BacaData();
         adapter = new TemanAdapter(temanArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
@@ -59,13 +56,14 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TemanBaru.class);
+                Intent intent = new Intent(getApplicationContext(), activity_tambah_teman.class);
                 startActivity(intent);
             }
         });
+
     }
 
-    public  void  bacaData(){
+    public  void BacaData(){
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jArr = new JsonArrayRequest(url_select,new Response.Listener<JSONArray>(){
             @Override
